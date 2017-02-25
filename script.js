@@ -1,12 +1,13 @@
 // Client ID and API key from the Developer Console
-var CLIENT_ID = '938574780113-j2quqmdq2e01tcdaogqqpfj4juo2igh7.apps.googleusercontent.com';
+var CLIENT_ID = '630639785378-ammobrbrrchf4614nl2hoib9qgjgbg5u.apps.googleusercontent.com';
 
 // Array of API discovery doc URLs for APIs used by the quickstart
 var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
 
 // Authorization scopes required by the API; multiple scopes can be
 // included, separated by spaces.
-var SCOPES = 'https://www.googleapis.com/auth/drive.file';
+// var SCOPES = 'https://www.googleapis.com/auth/drive.file';
+var SCOPES = 'https://www.googleapis.com/auth/drive';
 
 var authorizeButton = document.getElementById('authorize-button');
 var signoutButton = document.getElementById('signout-button');
@@ -111,10 +112,10 @@ function downloadFile(e) {
       url: 'https://www.googleapis.com/drive/v3/files/' + fileId + '/export?mimeType=text/html',
       beforeSend: function (xhr) {
         xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
-      }, 
+      },
       success: function(res) {
         $('#content').html(res);
-      }, 
+      },
       fail: function(res) {
         console.log('fail ' + res);
       }
