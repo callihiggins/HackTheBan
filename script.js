@@ -108,7 +108,7 @@ function downloadFile(e) {
     var accessToken = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token;
     $.ajax({
       type: 'GET',
-      url: 'https://www.googleapis.com/drive/v3/files/' + fileId + '/export?mimeType=application/vnd.google-apps.file',
+      url: 'https://www.googleapis.com/drive/v3/files/' + fileId + '/export?mimeType=text/html',
       beforeSend: function (xhr) {
         xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
       }, 
