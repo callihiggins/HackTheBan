@@ -1,17 +1,54 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Drive API Quickstart</title>
+    <title>If An Agent Knocks</title>
     <meta charset='utf-8' />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <style>
+
+    span {
+      font-family: 'Roboto Condensed', sans-serif !important;
+    }
+    img {
+      margin-left: auto;
+      margin-right:auto;
+      display: block;
+    }
+
+    .file-link {
+      color: blue;
+      text-decoration: underline;
+      cursor:pointer;
+    }
+
+    .content {
+      display: none;
+    }
+
+    #signout-button {
+      float: right;
+    }
+    </style>
   </head>
   <body>
-    <p>Drive API Quickstart</p>
-
+    <img src="ccr-logo.png"/>
     <!--Add buttons to initiate auth sequence and sign out-->
-    <button id="authorize-button" style="display: none;">Authorize</button>
-    <button id="signout-button" style="display: none;">Sign Out</button>
 
-    <pre id="content"></pre>
+    <div class="start-page">
+      <div class="signed-out">
+        <p>Click to authorize access to your Google Drive account</p>
+        <button id="authorize-button">Authorize</button>
+      </div>
+
+      <div class="signed-in" style="display: none">
+        <button id="signout-button">Sign Out of Google Drive</button>
+        <p> Click the export link to load the google document as html!</p>
+      </div>
+
+      <div class="file-list"></div>
+    </div> <!-- end start page -->
+
+    <div class="content"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="script.js"></script>

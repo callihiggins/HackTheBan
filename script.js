@@ -45,12 +45,12 @@ function initClient() {
  */
 function updateSigninStatus(isSignedIn) {
   if (isSignedIn) {
-    authorizeButton.style.display = 'none';
-    signoutButton.style.display = 'block';
+    $('.signed-out').hide();
+    $('.signed-in').show();
     listFiles();
   } else {
-    authorizeButton.style.display = 'block';
-    signoutButton.style.display = 'none';
+    $('.signed-in').hide();
+    $('.signed-out').show();
   }
 }
 
@@ -74,8 +74,8 @@ function handleSignoutClick(event) {
  *
  * @param {string} message Text to be placed in pre element.
  */
-function appendPre(message) {
-  $('#content').append(message);
+function appendList(message) {
+  $('.file-list').append(message);
 }
 
 /**
@@ -85,25 +85,25 @@ function listFiles() {
   gapi.client.drive.files.list({
     'fields': "nextPageToken, files(id, name)"
   }).then(function(response) {
-    appendPre('Files:');
+    appendList('Files:');
     var files = response.result.files;
     if (files && files.length > 0) {
       for (var i = 0; i < files.length; i++) {
         var file = files[i];
-        appendPre('<div data-file="' + file.id + '" class="file-name"> ' + file.name + '</div>');
+        appendList('<li data-file=" ' + file.id + '"class="file-name"> ' + file.name + '<span class="file-link" data-file="' + file.id + '"> 👉 Export Html</span></li>');
       }
-      $('.file-name').on('click', function(e) {
+      $('.file-link').on('click', function(e) {
         downloadFile(e);
       });
     } else {
-      appendPre('No files found.');
+      appendList('No files found.');
     }
   });
 }
 
 
 function downloadFile(e) {
-  console.log('downloading');
+  console.log('downloading', e);
   var fileId = $(e.target).data('file');
   if (fileId) {
     var accessToken = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token;
@@ -114,7 +114,8 @@ function downloadFile(e) {
         xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
       },
       success: function(res) {
-        $('#content').html(res);
+        $('.start-page').hide();
+        $('.content').html(res).show();
       },
       fail: function(res) {
         console.log('fail ' + res);
